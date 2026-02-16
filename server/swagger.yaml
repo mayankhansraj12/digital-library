@@ -1,0 +1,206 @@
+openapi: 3.0.0
+info:
+  title: Digital Library API
+  description: API for managing a digital library system
+  version: 1.0.0
+servers:
+  - url: /
+    description: Current Server (Local or Production)
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        _id:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+        status:
+          type: string
+          enum: [Available, Borrowed]
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum: [user, admin]
+    AuthToken:
+      type: object
+      properties:
+        token:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
+paths:
+  /api/auth/register:
+    post:
+      summary: Register a new user
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                role:
+                  type: string
+                  enum: [user, admin]
+      responses:
+        200:
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+  /api/auth/login:
+    post:
+      summary: Login user
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+  /api/auth/me:
+    get:
+      summary: Get current user profile
+      responses:
+        200:
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /api/books:
+    get:
+      summary: Get all books
+      responses:
+        200:
+          description: List of books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Create a book (Admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                author:
+                  type: string
+                description:
+                  type: string
+                image:
+                  type: string
+      responses:
+        200:
+          description: Book created
+  /api/books/{id}:
+    put:
+      summary: Update a book (Admin only)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                author:
+                  type: string
+                description:
+                  type: string
+                image:
+                  type: string
+                status:
+                    type: string
+      responses:
+        200:
+          description: Book updated
+    delete:
+      summary: Delete a book (Admin only)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Book deleted
+  /api/books/{id}/borrow:
+    put:
+      summary: Mark book as Borrowed (Admin only)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Book status updated to Borrowed
+  /api/books/{id}/return:
+    put:
+      summary: Mark book as Available (Admin only)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Book status updated to Available
