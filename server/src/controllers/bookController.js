@@ -60,7 +60,7 @@ exports.updateBook = async (req, res) => {
         book = await Book.findByIdAndUpdate(
             req.params.id,
             { $set: bookFields },
-            { new: true }
+            { returnDocument: 'after' }
         );
 
         res.json(book);
