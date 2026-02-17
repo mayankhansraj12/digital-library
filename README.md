@@ -2,6 +2,11 @@
 
 A robust MERN (MongoDB, Express, React, Node.js) application designed to serve as a digital catalog for a physical library. It allows members to browse the collection and check real-time availability of books before visiting, while administrators manage the inventory.
 
+## 🌐 Live Demo
+**[Visit Live Site](https://digital-library-uy7j.onrender.com/)**
+
+> ⚠️ **Note:** The site is hosted on Render's free tier and may take 30-60 seconds to load on the first visit (cold start). Subsequent requests will be faster.
+
 ## 🚀 Project Overview
 
 **Purpose:** To streamline the library experience by providing an online catalog where users can check if a book is "Available" on the shelf or currently "Borrowed".
@@ -15,13 +20,25 @@ A robust MERN (MongoDB, Express, React, Node.js) application designed to serve a
 ### 👤 For Members (Public/User)
 -   **Browse Catalog**: View the complete collection of books with cover images and descriptions.
 -   **Real-Time Availability**: Instantly see if a book is **Available** or **Borrowed**.
--   **Search**: Find specific titles or authors (coming soon).
+-   **Search**: Find specific titles or authors.
 -   **Responsive Design**: optimized for mobile and desktop browsing.
 
 ### 🛡️ For Administrators
 -   **Inventory Management**: Add, Edit, and Delete books.
 -   **Status Control**: Manually update book status (mark as Borrowed/Returned) when members visit the physical desk.
 -   **Secure Admin Mode**: Dedicated controls visible only to logged-in admins.
+
+## 🏗️ Architecture
+-   **MVC Pattern**: Organized server structure (Models, Views/Routes, Controllers).
+-   **RESTful API**: Standardized endpoints for book and user management.
+-   **Scalable**: Built with modularity in mind for future feature expansion (e.g., reservation system, fine tracking).
+
+## 📈 Scalability
+The current architecture supports straightforward scaling:
+-   **Caching**: Add Redis for frequently accessed book listings.
+-   **Load Balancing**: Deploy multiple backend instances behind a load balancer (e.g., Nginx).
+-   **Microservices**: Split authentication and book management into separate services if needed.
+-   **Database**: MongoDB Atlas auto-scales with usage and supports replica sets for high availability.
 
 ## 🛠️ Setup Instructions
 
@@ -68,8 +85,3 @@ VITE_API_URL=http://localhost:5000/api
 
 ## 📚 API Documentation
 API documentation is available via Swagger UI at `http://localhost:5000/api-docs` when the server is running.
-
-## 🏗️ Architecture
--   **MVC Pattern**: Organized server structure (Models, Views/Routes, Controllers).
--   **RESTful API**: Standardized endpoints for book and user management.
--   **Scalable**: Built with modularity in mind for future feature expansion (e.g., reservation system, fine tracking).
