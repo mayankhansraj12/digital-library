@@ -3,7 +3,7 @@
 A robust MERN (MongoDB, Express, React, Node.js) application designed to serve as a digital catalog for a physical library. It allows members to browse the collection and check real-time availability of books before visiting, while administrators manage the inventory.
 
 ## 🌐 Live Demo
-**[Visit Live Site](https://digital-library-uy7j.onrender.com/)**
+**[Visit Live Site](https://digilib.mayankhansraj.me/)**
 
 > ⚠️ **Note:** The site is hosted on Render's free tier and may take 30-60 seconds to load on the first visit (cold start). Subsequent requests will be faster.
 
